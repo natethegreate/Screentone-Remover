@@ -11,6 +11,7 @@ from tkinter import ttk
 from tkinter import filedialog
 from PIL import Image
 from PIL import ImageFilter
+from os import listdir
 import math
 from matplotlib import pyplot as plt
 from skimage.io import imread
@@ -24,15 +25,15 @@ def blur(img, blur_amount=5):
     return dst
 
 # Laplacian filter for sharpening. Only want to do runs of 3x3 kernels to avoid oversharpening.
-def sharp(img, img2, sharp_amount = 5):
+def sharp(img, sharp_amount = 5):
     s_kernel = np.array([[0,-1.14,0], [-1.14,5.7,-1.14], [0,-1.14,0]])
 
     sharpened = cv2.filter2D(img, -1, s_kernel)
     # Multiple runs if different blurring was used. Default, 1 extra run
-    if sharp_amount>=5:
+    if sharp_amount>5:
         sharpened = cv2.filter2D(sharpened, -1, s_kernel)
-    if sharp_amount >5:
-        sharpened = cv2.filter2D(sharpened, -1, s_kernel)
+    # if sharp_amount >5:
+    #     sharpened = cv2.filter2D(sharpened, -1, s_kernel)
     
     # plt.subplot(121)
     # plt.imshow(img2)
@@ -45,14 +46,73 @@ def sharp(img, img2, sharp_amount = 5):
     # plt.show()
     return sharpened
 
+# 1 - no png files found
+# 2 - no input dir
+# 3 - no output dir
+# 4 - write error
+def error(errcode):
+    # popup success message
+    popup = Tk()
+    popup.title('Error')
+    switcher = {
+        1: "Error: No .png files found",
+        2: "Error: No input directory",
+        3: "Error: No output directory", 
+        4: "Error: File write error"
+    }
+
+    label = Label(popup, text=switcher.get(errcode, "what"))
+    label.pack(side=TOP, fill=X, pady=20)
+
+    okbutton = Button(popup, text='Ok', command=popup.destroy)
+    okbutton.pack()
+    popup.mainloop()
+    # popup error code
+
+# function scans directory and returns genorator
+def getfileList(dir):
+    return (i for i in listdir(dir) if i.endswith('.png'))
+
+# function will call the blur and sharpen on every file in directory, and write output file
 def removeScreentones(dir_i, dir_o, amount):
-    print(dir_i)
-    print(dir_o)
-    print(amount)
+    if(dir_i == [] or len(dir_i)==0):
+        return error(2)
+    if(dir_o == [] or len(dir_o)==0):
+        return error(3)
+    inputs = list(getfileList(dir_i))
+    if(len(inputs) == 0):
+        return error(1)
+
+    bs_amount = 0
+    if(amount==1):
+        bs_amount=3
+    if(amount==2):
+        bs_amount=5
+    if(amount==3):
+        bs_amount=7
+
+    for i in inputs:
+        # print(dir_i+'/'+i)
+        img = cv2.imread(dir_i + '/' + i)
+        blurred = blur(img, bs_amount)
+        ret = sharp(blurred, bs_amount)
+        sucess = cv2.imwrite(dir_o + '/0_' + i, ret)
+        if(sucess != True):
+            return error(4)
+    # popup success message
+    popup = Tk()
+    popup.title('Success!')
+    label = Label(popup, text='Process executed successfully!')
+    label.pack(side=TOP, fill=X, pady=20)
+    okbutton = Button(popup, text='Ok', command=popup.destroy)
+    okbutton.pack()
+    popup.mainloop()
+
 
 dtext = ""
 otext = ""
 
+# both functions used to get and set directories
 def dnewdir():
     dtext = filedialog.askdirectory(title='Choose directory for input .pngs')
     dvar.set(dtext)
@@ -60,6 +120,7 @@ def dnewdir():
 def onewdir():
     otext = filedialog.askdirectory(title='Choose directory for output .pngs')
     ovar.set(otext)
+
 if __name__ == "__main__":
     # img = cv2.imread('16.png')
     # bs_amount = 5
