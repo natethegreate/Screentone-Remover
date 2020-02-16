@@ -1,20 +1,16 @@
 # Feb 2020 - Nathan Cueto
 # Attempt to remove screentones from input images (png) using blurring and sharpening
 # 
-import sys
-sys.path.append('/usr/local/lib/python2.7/site-packages')
+# import sys
+# sys.path.append('/usr/local/lib/python2.7/site-packages')
 import cv2
 import numpy as np
-import scipy.signal as signal
 from tkinter import *
-from tkinter import ttk
+# from tkinter import ttk
 from tkinter import filedialog
-from PIL import Image
-from PIL import ImageFilter
 from os import listdir
-import math
-from matplotlib import pyplot as plt
-from skimage.io import imread
+
+versionNumber = '1.2'
 
 # Gaussian blue with variable kernel size, aka more or less blurring
 def blur(img, blur_amount=5):
@@ -131,7 +127,7 @@ if __name__ == "__main__":
 
     # GUI codes
     root = Tk()
-    root.title("Screentone Remover")
+    root.title("Screentone Remover v." + versionNumber)
 
 
     tFrame = Frame(root)
