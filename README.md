@@ -15,10 +15,16 @@ Python 3 if you want to run the source codes.
 
 Note that the .exe file is quite large. The signal processing utilizes a large library of signal processing related functions, opencv.
 
+### Downloads
+
+v. [1.2](https://github.com/natethegreate/Screentone-Remover/releases/tag/1.2)
+
 ### Installing
 
 * Executable
-  Haven't made it into executable yet, coming very soon.
+  Simply follow the link above and download the package.zip. 
+  Extract the program from the zip. I would reccommend creating an input folder and output folder in the same directory for ease of use.
+  There is a slim chance that the file directory dialogue can trigger your Anti-virus. I was able to bypass this by just closing the app and restarting it again.
 
 ```
 Give the example
