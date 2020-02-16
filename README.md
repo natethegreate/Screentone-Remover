@@ -11,7 +11,9 @@ You should have whatever doujin or images you want in .png format, in some folde
 ### Prerequisites
 Windows, tested on windows 10.
 
-Python 3 if you want to run the source codes
+Python 3 if you want to run the source codes.
+
+Note that the .exe file is quite large. The signal processing utilizes a large library of signal processing related functions, opencv.
 
 ### Installing
 
@@ -39,6 +41,7 @@ All codes made by me.
 
 ## Versioning
 
+1.2: Removed redundant modules. Created exe file.
 1.1: GUI, directory selection, batch screentone removing, variable removal
 1.0: Can remove screentones from an image
 
