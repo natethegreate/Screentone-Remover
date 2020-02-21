@@ -17,6 +17,7 @@ Note that the .exe file is quite large. The signal processing utilizes a large l
 
 ### Downloads
 
+v. 1.3
 v. [1.2](https://github.com/natethegreate/Screentone-Remover/releases/tag/1.2)
 
 ### Installing
@@ -47,6 +48,9 @@ All codes made by me.
 
 ## Versioning
 
+1.3: * Updated blurring process. Secondary blur is now a bilateral filter, which retains edges and removes toning much better. 
+     * Removed secondary sharpening because it can add noise in some circumstances.
+     * Default slider position is now on 2.
 1.2: Removed redundant modules. Created exe file.
 1.1: GUI, directory selection, batch screentone removing, variable removal
 1.0: Can remove screentones from an image
