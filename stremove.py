@@ -7,17 +7,33 @@ import cv2
 import numpy as np
 from tkinter import *
 # from tkinter import ttk
+# from matplotlib import pyplot as plt
 from tkinter import filedialog
 from os import listdir
 
-versionNumber = '1.2'
+versionNumber = '1.3'
 
 # Gaussian blue with variable kernel size, aka more or less blurring
 def blur(img, blur_amount=5):
-    horiz_kernel = np.ones((blur_amount,blur_amount), np.float32)/ (blur_amount*blur_amount)
-    dst = cv2.GaussianBlur(img,(blur_amount,blur_amount),0)
-    dst = cv2.blur(dst,(3, 3))
-
+    if(blur_amount == 7):
+        dst2 = cv2.GaussianBlur(img,(7,7),0)
+        dst = cv2.bilateralFilter(dst2, 7, 80, 80)
+    else:
+        dst2 = cv2.GaussianBlur(img,(5,5),0)
+        dst = cv2.bilateralFilter(dst2, 7, 15 * blur_amount, 80)
+    # plt.subplot(131)
+    # plt.imshow(dst2)
+    # plt.title('gauss')
+    # plt.xticks([]), plt.yticks([])
+    # plt.subplot(132)
+    # plt.imshow(dst)
+    # plt.title('abf')
+    # plt.xticks([]), plt.yticks([])
+    # plt.subplot(133)
+    # plt.imshow(dst3)
+    # plt.title('blur')
+    # plt.xticks([]), plt.yticks([])
+    # plt.show()
     return dst
 
 # Laplacian filter for sharpening. Only want to do runs of 3x3 kernels to avoid oversharpening.
@@ -25,12 +41,6 @@ def sharp(img, sharp_amount = 5):
     s_kernel = np.array([[0,-1.14,0], [-1.14,5.7,-1.14], [0,-1.14,0]])
 
     sharpened = cv2.filter2D(img, -1, s_kernel)
-    # Multiple runs if different blurring was used. Default, 1 extra run
-    if sharp_amount>5:
-        sharpened = cv2.filter2D(sharpened, -1, s_kernel)
-    # if sharp_amount >5:
-    #     sharpened = cv2.filter2D(sharpened, -1, s_kernel)
-    
     # plt.subplot(121)
     # plt.imshow(img2)
     # plt.title('Original')
@@ -104,7 +114,7 @@ def removeScreentones(dir_i, dir_o, amount):
     okbutton.pack()
     popup.mainloop()
 
-
+# globals that hold directory strings
 dtext = ""
 otext = ""
 
@@ -152,10 +162,11 @@ if __name__ == "__main__":
     out_button = Button(tFrame, text="Browse", command=onewdir)
     out_button.grid(row=2, column=2)
 
-    slideLabel = Label(bFrame, text = 'Removal amount: (Default is 2)')
+    slideLabel = Label(bFrame, text = 'Blur amount: (Default is 2)')
     slideLabel.grid(row=0, padx=20)
     filtslide = Scale(bFrame, from_=1, to=3, orient=HORIZONTAL)
     filtslide.grid( columnspan=2)
+    filtslide.set(2)
     go_button = Button(bFrame, text="Go!", command = lambda: removeScreentones(d_entry.get(), o_entry.get(), filtslide.get()))
     go_button.grid( columnspan=2)
     root.geometry("400x300")
