@@ -17,7 +17,7 @@ Note that the .exe file is quite large. The signal processing utilizes a large l
 
 ### Downloads
 
-v. 1.3
+v. [1.3](https://github.com/natethegreate/Screentone-Remover/releases/tag/1.3)
 v. [1.2](https://github.com/natethegreate/Screentone-Remover/releases/tag/1.2)
 
 ### Installing
