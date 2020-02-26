@@ -84,7 +84,7 @@ def getfileList(dir):
     return (i for i in listdir(dir) if i.endswith('.png'))
 
 # function will call the blur and sharpen on every file in directory, and write output file
-def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.7, sh_low=-1.14):
+def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
     if(dir_i == [] or len(dir_i)==0):
         return error(2)
     if(dir_o == [] or len(dir_o)==0):
@@ -98,7 +98,7 @@ def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.7, sh_low=-1.14):
     sh_low = float(sh_low)
     print(sh_point, sh_low)
     sharps = (4 * sh_low) + sh_point
-    if(sharps > 1.15):
+    if(sharps > 0):
         popupw = Tk() # popup warning
         popupw.title('Warning')
         label = Label(popupw, text='Sharpening parameters result is high. Output will brighten')
@@ -106,7 +106,7 @@ def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.7, sh_low=-1.14):
         okbutton = Button(popupw, text='Ok', command=popupw.destroy)
         okbutton.pack()
         popupw.mainloop()
-    elif(sharps < -1.15):
+    elif(sharps < 0):
         popupw = Tk() # popup warning
         popupw.title('Warning')
         label = Label(popupw, text='Sharpening parameters result is low. Output will darken')
@@ -196,16 +196,16 @@ if __name__ == "__main__":
     filtslide.set(2)
 
     # sharpening sliders
-    helpLabel = Label(bFrame, text = 'Sharpening: | point strength + (4 * low strength) | should be < 1.2')
+    helpLabel = Label(bFrame, text = 'Sharpening: | point strength + (4 * low strength) | should be ~= 0')
     helpLabel.grid(row=5, padx=10)
-    sharpLabel = Label(bFrame, text = 'Sharpening point strength: (Default is +5.7)')
+    sharpLabel = Label(bFrame, text = 'Sharpening point strength: (Default is +5.56)')
     sharpLabel.grid(row=2, padx=20)
     sharpSlide = Entry(bFrame)
     sharpSlide.grid(row=3)
-    sharpSlide.insert(0, '5.7')
+    sharpSlide.insert(0, '5.56')
     shLabel = Label(bFrame, text = 'Sharpening low strength:  (Default is -1.14)')
     shLabel.grid(row=4, padx=20)
-    helpLabel = Label(bFrame, text = 'NOTE: Must be negative, absolute val should be <= (1/4) * point strength')
+    helpLabel = Label(bFrame, text = 'NOTE: Must be negative, absolute val should be == (1/4) * point strength')
     helpLabel.grid(row=5, padx=10)
     shEntry = Entry(bFrame)
     shEntry.grid(row=6, padx=20)
@@ -213,7 +213,7 @@ if __name__ == "__main__":
 
     go_button = Button(bFrame, text="Go!", command = lambda: removeScreentones(d_entry.get(), o_entry.get(), filtslide.get(), sharpSlide.get(), shEntry.get()))
     go_button.grid( columnspan=2)
-    root.geometry("400x450")
+    root.geometry("400x420")
     tFrame.pack(fill="both", expand=True)
     bFrame.pack(fill="both", expand=True)
 
