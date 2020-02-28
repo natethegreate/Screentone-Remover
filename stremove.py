@@ -11,7 +11,7 @@ from tkinter import *
 from tkinter import filedialog
 from os import listdir
 
-versionNumber = '1.4'
+versionNumber = '1.5'
 
 # Gaussian blue with variable kernel size, aka more or less blurring
 def blur(img, blur_amount=5):
@@ -22,7 +22,7 @@ def blur(img, blur_amount=5):
         dst = cv2.bilateralFilter(dst2, 7, 80, 80)
     else:
         dst2 = cv2.GaussianBlur(img,(5,5),0)
-        dst = cv2.bilateralFilter(dst2, 7, 15 * blur_amount, 80)
+        dst = cv2.bilateralFilter(dst2, 7, 10 * blur_amount, 80)
     # plt.subplot(131)
     # plt.imshow(dst2)
     # plt.title('gauss')
@@ -97,7 +97,7 @@ def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
     sh_point = float(sh_point)
     sh_low = float(sh_low)
     print(sh_point, sh_low)
-    sharps = (4 * sh_low) + sh_point
+    sharps = (4 * sh_low) + sh_point - 1 # weight is initially just 1
     if(sharps > 0):
         popupw = Tk() # popup warning
         popupw.title('Warning')
