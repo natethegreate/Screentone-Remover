@@ -53,6 +53,8 @@ Any contributions are welcome, I am still a student with limited resources and t
 
 ## Versioning
 
+1.41: * Greatly improved sharpening process, which was brightening images unecessarily due to a miscalculation. Updated labels and defaults.
+
 1.4: * Sharpening is now parameterized. You can customize the filter to suit whatever art style you encounter. Defaults are still visible. For more information on the filter params, check out [this page](https://homepages.inf.ed.ac.uk/rbf/HIPR2/log.htm)
 
 1.3: * Updated blurring process. Secondary blur is now a bilateral filter, which retains edges and removes toning much better. 
