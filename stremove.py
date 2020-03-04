@@ -3,7 +3,8 @@
 # 
 # import sys
 # sys.path.append('/usr/local/lib/python2.7/site-packages')
-import cv2
+# import cv2
+from cv2 import GaussianBlur, bilateralFilter, filter2D, imread, imwrite
 import numpy as np
 from tkinter import *
 # from tkinter import ttk
@@ -18,11 +19,11 @@ def blur(img, blur_amount=5):
     # TODO experiment with upscaling
     # TODO customizable variables for sigmas
     if(blur_amount == 7):
-        dst2 = cv2.GaussianBlur(img,(7,7),0)
-        dst = cv2.bilateralFilter(dst2, 7, 80, 80)
+        dst2 = GaussianBlur(img,(7,7),0)
+        dst = bilateralFilter(dst2, 7, 80, 80)
     else:
-        dst2 = cv2.GaussianBlur(img,(5,5),0)
-        dst = cv2.bilateralFilter(dst2, 7, 10 * blur_amount, 80)
+        dst2 = GaussianBlur(img,(5,5),0)
+        dst = bilateralFilter(dst2, 7, 10 * blur_amount, 80)
     # plt.subplot(131)
     # plt.imshow(dst2)
     # plt.title('gauss')
@@ -44,7 +45,7 @@ def sharp(img, sharp_point, sharp_low):
     # TODO try darkening image
     s_kernel = np.array([[0, sharp_low, 0], [sharp_low, sharp_point, sharp_low], [0, sharp_low, 0]])
 
-    sharpened = cv2.filter2D(img, -1, s_kernel)
+    sharpened = filter2D(img, -1, s_kernel)
     # plt.subplot(121)
     # plt.imshow(img2)
     # plt.title('Original')
@@ -81,7 +82,7 @@ def error(errcode):
 
 # function scans directory and returns genorator
 def getfileList(dir):
-    return (i for i in listdir(dir) if i.endswith('.png'))
+    return (i for i in listdir(dir) if i.endswith('.png') or i.endswith('.PNG'))
 
 # function will call the blur and sharpen on every file in directory, and write output file
 def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
@@ -125,10 +126,10 @@ def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
 
     for i in inputs:
         # print(dir_i+'/'+i)
-        img = cv2.imread(dir_i + '/' + i)
+        img = imread(dir_i + '/' + i)
         blurred = blur(img, bs_amount)
         ret = sharp(blurred, sh_point, sh_low)
-        sucess = cv2.imwrite(dir_o + '/0_' + i, ret)
+        sucess = imwrite(dir_o + '/0_' + i, ret)
         if(sucess != True):
             return error(4)
     # popup success message
