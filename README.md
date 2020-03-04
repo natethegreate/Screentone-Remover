@@ -3,6 +3,9 @@ Script with GUI that removes screentones, or the "printed" effect in manga and d
 This process is necessary for use with [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf. 
 Gaussian blur is applied to an image, then an averaging blur afterwards. This removes high frequency signals (screentones).
 The output of this is sharpened with a Laplacian kernel, to retain some edge.
+
+Here is a visual example:
+![srsfwexample](screentoneexsfw.jpg)
 NOTE: More blurring will remove heavier screentones, but will result in more loss of quality from the image. You may need to experiment with the 3 blurring levels depending on the artists screentone usage.
 
 ## Getting Started
@@ -17,6 +20,8 @@ Python 3 if you want to run the source codes. Uses opencv (cv2) libs, numpy, and
 Note that the .exe file is quite large. The signal processing utilizes a large library of signal processing related functions, opencv.
 
 ### Downloads
+
+* v.[1.5](https://github.com/natethegreate/Screentone-Remover/releases/tag/1.5)
 
 * v. [1.4](https://github.com/natethegreate/Screentone-Remover/releases/tag/1.4)
 
@@ -52,6 +57,8 @@ You should use this in tandem with my other project, hentAI, and eventually [Dee
 Any contributions are welcome, I am still a student with limited resources and time and appreciate any help I can get.
 
 ## Versioning
+
+1.5 * Cut down on unneeded libs (file size unchanged), fixed bug where .PNG wasn't recognized
 
 1.41: * Greatly improved sharpening process, which was brightening images unecessarily due to a miscalculation. Updated labels and defaults.
 
