@@ -87,6 +87,8 @@ Any contributions are welcome, I am still a student with limited resources and t
 
 * **Nathan Cueto** - *Everything* - [My GitHub](https://github.com/natethegreate)
 
+* Artist soranosuzume for the sample image.
+
 ## License
 
 This project is licensed under MIT
