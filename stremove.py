@@ -12,7 +12,7 @@ from tkinter import *
 from tkinter import filedialog
 from os import listdir
 
-versionNumber = '1.5'
+versionNumber = '1.6'
 
 # Gaussian blue with variable kernel size, aka more or less blurring
 def blur(img, blur_amount=5):
@@ -82,7 +82,7 @@ def error(errcode):
 
 # function scans directory and returns genorator
 def getfileList(dir):
-    return (i for i in listdir(dir) if i.endswith('.png') or i.endswith('.PNG'))
+    return (i for i in listdir(dir) if i.endswith('.png') or i.endswith('.PNG') or i.endswith('.jpg') or i.endswith('.JPG') or i.endswith('.jpeg'))
 
 # function will call the blur and sharpen on every file in directory, and write output file
 def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
@@ -97,7 +97,7 @@ def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
     # calculate sh params, warning if they are unproportionate
     sh_point = float(sh_point)
     sh_low = float(sh_low)
-    print(sh_point, sh_low)
+    # print(sh_point, sh_low)
     sharps = (4 * sh_low) + sh_point - 1 # weight is initially just 1
     if(sharps > 0):
         popupw = Tk() # popup warning
@@ -124,6 +124,11 @@ def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
     if(blur_amount==3):
         bs_amount=7
 
+    loader = Tk()
+    loader.title('Processing')
+    load_label = Label(loader, text='Removing Screentones. Please wait')
+    load_label.pack(fill=X, pady=10, padx=20)
+    loader.update()
     for i in inputs:
         # print(dir_i+'/'+i)
         img = imread(dir_i + '/' + i)
@@ -132,6 +137,8 @@ def removeScreentones(dir_i, dir_o, blur_amount, sh_point=5.56, sh_low=-1.14):
         sucess = imwrite(dir_o + '/0_' + i, ret)
         if(sucess != True):
             return error(4)
+
+    loader.destroy()
     # popup success message
     popup = Tk()
     popup.title('Success!')
@@ -147,11 +154,11 @@ otext = ""
 
 # both functions used to get and set directories
 def dnewdir():
-    dtext = filedialog.askdirectory(title='Choose directory for input .pngs')
+    dtext = filedialog.askdirectory(title='Choose directory for input images (.png recommended)')
     dvar.set(dtext)
 
 def onewdir():
-    otext = filedialog.askdirectory(title='Choose directory for output .pngs')
+    otext = filedialog.askdirectory(title='Choose directory for output images (.png recommended)')
     ovar.set(otext)
 
 if __name__ == "__main__":
