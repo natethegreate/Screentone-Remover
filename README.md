@@ -1,6 +1,6 @@
 # Screentone-Remover
 Script with GUI that removes screentones, or the "printed" effect in manga and doujins, using DSP.
-This process is necessary for use with [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf. 
+This process is necessary for use with [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf, and my other project hentAI. 
 Gaussian blur is applied to an image, then an averaging blur afterwards. This removes high frequency signals (screentones).
 The output of this is sharpened with a Laplacian kernel, to retain some edge.
 
@@ -20,6 +20,8 @@ Python 3 if you want to run the source codes. Uses opencv (cv2) libs, numpy, and
 Note that the .exe file is quite large. The signal processing utilizes a large library of signal processing related functions, opencv.
 
 ### Downloads
+
+* v.1.6
 
 * v.[1.5](https://github.com/natethegreate/Screentone-Remover/releases/tag/1.5)
 
@@ -50,7 +52,7 @@ py stremove.py
 
 ## Deployment
 
-You should use this in tandem with my other project, hentAI, and eventually [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf.
+You should use this in tandem with my other project, hentAI, and [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf.
 
 ## Contributing
 
@@ -58,21 +60,23 @@ Any contributions are welcome, I am still a student with limited resources and t
 
 ## Versioning
 
-1.5 * Cut down on unneeded libs (file size unchanged), fixed bug where .PNG wasn't recognized
+* 1.6: Added support for jpg files. But all images should be in png to ensure compatibility with DeepCreamPy.
 
-1.41: * Greatly improved sharpening process, which was brightening images unecessarily due to a miscalculation. Updated labels and defaults.
+* 1.5 Cut down on unneeded libs (file size unchanged), fixed bug where .PNG wasn't recognized
 
-1.4: * Sharpening is now parameterized. You can customize the filter to suit whatever art style you encounter. Defaults are still visible. For more information on the filter params, check out [this page](https://homepages.inf.ed.ac.uk/rbf/HIPR2/log.htm)
+* 1.41: Greatly improved sharpening process, which was brightening images unecessarily due to a miscalculation. Updated labels and defaults.
 
-1.3: * Updated blurring process. Secondary blur is now a bilateral filter, which retains edges and removes toning much better. 
+* 1.4: Sharpening is now parameterized. You can customize the filter to suit whatever art style you encounter. Defaults are still visible. For more information on the filter params, check out [this page](https://homepages.inf.ed.ac.uk/rbf/HIPR2/log.htm)
+
+* 1.3: * Updated blurring process. Secondary blur is now a bilateral filter, which retains edges and removes toning much better. 
      * Removed secondary sharpening because it can add noise in some circumstances.
      * Default slider position is now on 2.
      
-1.2: Removed redundant modules. Created exe file.
+* 1.2: Removed redundant modules. Created exe file.
 
-1.1: GUI, directory selection, batch screentone removing, variable removal
+* 1.1: GUI, directory selection, batch screentone removing, variable removal
 
-1.0: Can remove screentones from an image
+* 1.0: Can remove screentones from an image
 
 ## Todo
 
