@@ -1,0 +1,23 @@
+Installation for executable:
+
+1. Extract into some folder.
+
+Tutorial:
+
+1. Choose input file directory (you can use the input_images folder, with you images there)
+
+2. Choose some folder for output images (you can use the output folder)
+
+3. I suggest leaving blur amount to the default value, but you can add more or less if the screentones still appear.
+
+4. For sharpening, I highly suggest not changing anything. Just hit the go button.
+
+5. After removing screentones, you can put these into hentAI for detection, and then DeepCreamPy fo decensoring.
+
+Advanced tutorial:
+
+1. If you want to run the code, I used python 3.5. Requirements are numpy, opencv-python (or cv2) and that should be it.
+
+2. Sharpening parameters: These are the values of the laplacian kernel to be convolved with the image.
+   Ensure the sharpening low * 4 == sharpening point - 1
+   If this condition is not met, the result images may brighten or darken. But maybe you want that, do whatever you want.
