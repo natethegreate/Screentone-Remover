@@ -1,6 +1,6 @@
 # Screentone-Remover
 Script with GUI that removes screentones, or the "printed" effect in manga and doujins, using DSP.
-This process is necessary for use with [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf, and my other project hentAI. 
+This process is necessary for use with [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf, and my other project [hent-AI](https://github.com/natethegreate/hent-AI). 
 Gaussian blur is applied to an image, then an averaging blur afterwards. This removes high frequency signals (screentones).
 The output of this is sharpened with a Laplacian kernel, to retain some edge.
 
@@ -52,7 +52,7 @@ py stremove.py
 
 ## Deployment
 
-You should use this in tandem with my other project, hentAI, and [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf.
+You should use this in tandem with my other project, hent-AI, and [DeepCreamPy](https://github.com/deeppomf/DeepCreamPy), by deeppomf.
 
 ## Contributing
 
